@@ -1,0 +1,680 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Naveen Narayan — AI Engineer</title>
+<meta name="description" content="Naveen Narayan — AI Engineer at IBM. I build agentic AI that ships: voice systems, multi-agent orchestration, and document automation, from the cloud to air-gapped on-prem." />
+
+<!-- Set theme before paint to avoid a flash -->
+<script>
+  (function () {
+    try {
+      var saved = localStorage.getItem("theme");
+      var sys = window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
+      document.documentElement.setAttribute("data-theme", saved || sys);
+    } catch (e) {
+      document.documentElement.setAttribute("data-theme", "dark");
+    }
+  })();
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+<style>
+  :root {
+    --bg: #0A0E14;
+    --surface: #121A24;
+    --surface-2: #18222E;
+    --border: #243140;
+    --text: #E6EDF3;
+    --muted: #8896A6;
+    --accent: #6CABDD;          /* Manchester City sky blue */
+    --accent-strong: #4F9FDB;
+    --accent-ink: #07101A;
+    --glow: rgba(108, 171, 221, 0.18);
+    --shadow: 0 24px 60px -20px rgba(0,0,0,0.6);
+
+    --display: "Bricolage Grotesque", system-ui, sans-serif;
+    --body: "Inter", system-ui, sans-serif;
+    --mono: "JetBrains Mono", ui-monospace, monospace;
+
+    --maxw: 1080px;
+  }
+
+  [data-theme="light"] {
+    --bg: #EEF2F6;
+    --surface: #FFFFFF;
+    --surface-2: #F4F8FB;
+    --border: #DCE4EC;
+    --text: #0C1622;
+    --muted: #5A6675;
+    --accent: #1F7AC0;
+    --accent-strong: #155F9C;
+    --accent-ink: #FFFFFF;
+    --glow: rgba(31, 122, 192, 0.12);
+    --shadow: 0 24px 50px -24px rgba(20,40,70,0.22);
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--body);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+    transition: background-color .35s ease, color .35s ease;
+  }
+
+  a { color: inherit; text-decoration: none; }
+  ::selection { background: var(--accent); color: var(--accent-ink); }
+
+  .wrap { width: 100%; max-width: var(--maxw); margin: 0 auto; padding: 0 24px; }
+
+  /* ---------- Top bar ---------- */
+  .topbar {
+    position: sticky; top: 0; z-index: 50;
+    backdrop-filter: blur(12px);
+    background: color-mix(in srgb, var(--bg) 78%, transparent);
+    border-bottom: 1px solid transparent;
+    transition: border-color .3s ease, background-color .3s ease;
+  }
+  .topbar.is-scrolled { border-bottom-color: var(--border); }
+  .topbar__inner {
+    display: flex; align-items: center; justify-content: space-between;
+    height: 64px;
+  }
+  .brand {
+    font-family: var(--mono); font-size: 14px; letter-spacing: .04em;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .brand .dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--accent); box-shadow: 0 0 14px var(--accent);
+  }
+  .nav { display: flex; align-items: center; gap: 8px; }
+  .nav a {
+    font-size: 13px; color: var(--muted); padding: 8px 12px; border-radius: 8px;
+    transition: color .2s ease, background-color .2s ease;
+  }
+  .nav a:hover { color: var(--text); background: var(--surface-2); }
+  @media (max-width: 720px) { .nav .nav-link { display: none; } }
+
+  .toggle {
+    width: 38px; height: 38px; border-radius: 10px;
+    border: 1px solid var(--border); background: var(--surface);
+    color: var(--text); cursor: pointer; display: grid; place-items: center;
+    transition: border-color .2s ease, transform .2s ease, background-color .2s ease;
+  }
+  .toggle:hover { border-color: var(--accent); transform: translateY(-1px); }
+  .toggle svg { width: 18px; height: 18px; }
+  .toggle .icon-sun { display: none; }
+  [data-theme="light"] .toggle .icon-sun { display: block; }
+  [data-theme="light"] .toggle .icon-moon { display: none; }
+
+  /* ---------- Hero ---------- */
+  .hero { padding: 86px 0 64px; position: relative; }
+  .hero__grid {
+    display: grid; grid-template-columns: 1.4fr 0.9fr; gap: 48px; align-items: center;
+  }
+  @media (max-width: 860px) {
+    .hero__grid { grid-template-columns: 1fr; gap: 36px; }
+    .hero { padding: 56px 0 40px; }
+  }
+
+  .eyebrow {
+    font-family: var(--mono); font-size: 12.5px; letter-spacing: .12em;
+    text-transform: uppercase; color: var(--accent); margin: 0 0 18px;
+    display: inline-flex; align-items: center; gap: 10px;
+  }
+  .eyebrow::before {
+    content: ""; width: 26px; height: 1px; background: var(--accent);
+  }
+
+  .hero h1 {
+    font-family: var(--display); font-weight: 800; letter-spacing: -0.02em;
+    font-size: clamp(42px, 7vw, 76px); line-height: 0.98; margin: 0 0 22px;
+  }
+  .hero h1 .accent { color: var(--accent); }
+
+  .hero__thesis {
+    font-size: clamp(16px, 2.1vw, 19px); color: var(--muted);
+    max-width: 36ch; margin: 0 0 30px;
+  }
+  .hero__thesis strong { color: var(--text); font-weight: 600; }
+
+  .cta-row { display: flex; flex-wrap: wrap; gap: 12px; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 9px;
+    padding: 11px 18px; border-radius: 11px; font-size: 14px; font-weight: 600;
+    border: 1px solid var(--border); background: var(--surface); color: var(--text);
+    transition: transform .18s ease, border-color .18s ease, background-color .18s ease, box-shadow .18s ease;
+  }
+  .btn svg { width: 16px; height: 16px; }
+  .btn:hover { transform: translateY(-2px); border-color: var(--accent); }
+  .btn--primary {
+    background: var(--accent); color: var(--accent-ink); border-color: var(--accent);
+  }
+  .btn--primary:hover { background: var(--accent-strong); border-color: var(--accent-strong); box-shadow: 0 12px 30px -10px var(--glow); }
+
+  /* avatar + waveform card */
+  .hero__aside { display: flex; flex-direction: column; align-items: center; gap: 22px; }
+  .avatar {
+    position: relative; width: 220px; height: 220px; border-radius: 24px;
+    overflow: hidden; border: 1px solid var(--border); background: var(--surface-2);
+    box-shadow: var(--shadow);
+    display: grid; place-items: center;
+  }
+  .avatar::after {
+    content: ""; position: absolute; inset: 0; border-radius: 24px;
+    box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--accent) 30%, transparent);
+    pointer-events: none;
+  }
+  .avatar img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .avatar__initials {
+    font-family: var(--display); font-weight: 800; font-size: 64px; color: var(--accent);
+    letter-spacing: -0.02em;
+  }
+  @media (max-width: 860px) { .avatar { width: 168px; height: 168px; } .avatar__initials { font-size: 52px; } }
+
+  /* waveform signature */
+  .wave {
+    display: flex; align-items: flex-end; gap: 3px; height: 46px;
+    width: 220px; justify-content: center;
+  }
+  .wave span {
+    width: 3px; border-radius: 3px; background: var(--accent);
+    height: 30%; opacity: .85;
+    animation: bounce 1.4s ease-in-out infinite;
+    transform-origin: bottom;
+  }
+  @keyframes bounce {
+    0%, 100% { transform: scaleY(0.28); }
+    50% { transform: scaleY(1); }
+  }
+  .wave__label {
+    font-family: var(--mono); font-size: 11px; color: var(--muted);
+    letter-spacing: .14em; text-align: center;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .wave span { animation: none; }
+    html { scroll-behavior: auto; }
+  }
+
+  /* ---------- Section scaffolding ---------- */
+  section { padding: 72px 0; }
+  @media (max-width: 720px) { section { padding: 52px 0; } }
+
+  .section-head { margin-bottom: 40px; }
+  .section-head .eyebrow { margin-bottom: 12px; }
+  .section-head h2 {
+    font-family: var(--display); font-weight: 700; letter-spacing: -0.02em;
+    font-size: clamp(26px, 4vw, 38px); margin: 0; line-height: 1.05;
+  }
+  .section-head p { color: var(--muted); margin: 12px 0 0; max-width: 56ch; }
+
+  /* ---------- About ---------- */
+  .about p { font-size: 17px; max-width: 64ch; color: var(--text); }
+  .about .lead { font-size: clamp(19px, 2.6vw, 24px); font-family: var(--display); font-weight: 600; letter-spacing: -0.01em; line-height: 1.35; margin-top: 0; }
+  .about .muted { color: var(--muted); }
+  .stats {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 36px;
+  }
+  @media (max-width: 620px) { .stats { grid-template-columns: 1fr; } }
+  .stat {
+    border: 1px solid var(--border); background: var(--surface); border-radius: 14px;
+    padding: 20px;
+  }
+  .stat .num { font-family: var(--display); font-weight: 800; font-size: 30px; color: var(--accent); line-height: 1; }
+  .stat .cap { font-size: 13px; color: var(--muted); margin-top: 8px; }
+
+  /* ---------- Experience timeline ---------- */
+  .timeline { position: relative; margin-left: 6px; }
+  .timeline::before {
+    content: ""; position: absolute; left: 7px; top: 6px; bottom: 6px;
+    width: 1px; background: var(--border);
+  }
+  .job { position: relative; padding: 0 0 36px 38px; }
+  .job:last-child { padding-bottom: 0; }
+  .job::before {
+    content: ""; position: absolute; left: 1px; top: 6px;
+    width: 13px; height: 13px; border-radius: 50%;
+    background: var(--bg); border: 2px solid var(--accent);
+  }
+  .job.current::before { background: var(--accent); box-shadow: 0 0 0 4px var(--glow); }
+  .job__meta {
+    font-family: var(--mono); font-size: 12px; color: var(--muted);
+    letter-spacing: .03em; margin-bottom: 6px;
+    display: flex; flex-wrap: wrap; gap: 6px 14px; align-items: center;
+  }
+  .job h3 { font-family: var(--display); font-weight: 700; font-size: 20px; margin: 0 0 2px; }
+  .job .org { color: var(--accent); font-weight: 600; }
+  .job ul { margin: 12px 0 0; padding-left: 18px; color: var(--muted); }
+  .job ul li { margin-bottom: 7px; }
+  .job ul li::marker { color: var(--accent); }
+
+  /* ---------- Projects ---------- */
+  .cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
+  @media (max-width: 720px) { .cards { grid-template-columns: 1fr; } }
+  .card {
+    border: 1px solid var(--border); background: var(--surface); border-radius: 16px;
+    padding: 24px; position: relative; overflow: hidden;
+    transition: transform .22s ease, border-color .22s ease, box-shadow .22s ease;
+  }
+  .card:hover { transform: translateY(-4px); border-color: var(--accent); box-shadow: var(--shadow); }
+  .card__top { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+  .card h3 { font-family: var(--display); font-weight: 700; font-size: 21px; margin: 0; }
+  .card .tag {
+    font-family: var(--mono); font-size: 10.5px; letter-spacing: .08em; text-transform: uppercase;
+    color: var(--accent); border: 1px solid var(--accent); border-radius: 999px; padding: 3px 9px;
+    white-space: nowrap;
+  }
+  .card p { color: var(--muted); font-size: 15px; margin: 12px 0 16px; }
+  .card .stack { display: flex; flex-wrap: wrap; gap: 6px; }
+  .chip {
+    font-family: var(--mono); font-size: 11px; color: var(--muted);
+    background: var(--surface-2); border: 1px solid var(--border); border-radius: 7px;
+    padding: 4px 9px;
+  }
+
+  /* ---------- Skills ---------- */
+  .skills-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+  @media (max-width: 720px) { .skills-grid { grid-template-columns: 1fr; } }
+  .skillset {
+    border: 1px solid var(--border); background: var(--surface); border-radius: 14px; padding: 20px;
+  }
+  .skillset h4 {
+    font-family: var(--mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase;
+    color: var(--accent); margin: 0 0 14px;
+  }
+  .skillset .stack { display: flex; flex-wrap: wrap; gap: 7px; }
+
+  /* ---------- Beyond / passions ---------- */
+  .passions { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
+  @media (max-width: 720px) { .passions { grid-template-columns: 1fr; } }
+  .passion {
+    border: 1px solid var(--border); border-radius: 16px; padding: 26px;
+    position: relative; overflow: hidden; min-height: 168px;
+    display: flex; flex-direction: column; justify-content: space-between;
+    transition: transform .22s ease, border-color .22s ease, box-shadow .22s ease;
+  }
+  .passion:hover { transform: translateY(-4px); border-color: var(--accent); box-shadow: var(--shadow); }
+  .passion--city {
+    background:
+      radial-gradient(120% 120% at 90% -10%, color-mix(in srgb, var(--accent) 28%, transparent), transparent 60%),
+      var(--surface);
+  }
+  .passion--gaming {
+    background:
+      radial-gradient(120% 120% at 90% -10%, color-mix(in srgb, var(--accent) 16%, transparent), transparent 60%),
+      var(--surface);
+  }
+  .passion .kicker { font-family: var(--mono); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+  .passion h3 { font-family: var(--display); font-weight: 700; font-size: 22px; margin: 8px 0 6px; }
+  .passion p { color: var(--muted); font-size: 14px; margin: 0; }
+  .passion .go {
+    margin-top: 18px; display: inline-flex; align-items: center; gap: 8px;
+    font-size: 13px; font-weight: 600; color: var(--accent);
+  }
+  .passion .go svg { width: 15px; height: 15px; transition: transform .2s ease; }
+  .passion:hover .go svg { transform: translate(2px, -2px); }
+
+  /* ---------- Contact / footer ---------- */
+  .contact {
+    border: 1px solid var(--border); background: var(--surface); border-radius: 20px;
+    padding: 44px; text-align: center;
+  }
+  .contact h2 { font-family: var(--display); font-weight: 800; font-size: clamp(28px, 5vw, 44px); letter-spacing: -0.02em; margin: 0 0 12px; }
+  .contact p { color: var(--muted); margin: 0 0 26px; }
+  .contact .cta-row { justify-content: center; }
+
+  footer {
+    padding: 36px 0 56px; text-align: center; color: var(--muted);
+    font-family: var(--mono); font-size: 12px; letter-spacing: .03em;
+  }
+  footer a { color: var(--muted); }
+  footer a:hover { color: var(--accent); }
+
+  /* ---------- Scroll reveal ---------- */
+  .reveal { opacity: 0; transform: translateY(18px); transition: opacity .6s ease, transform .6s ease; }
+  .reveal.in { opacity: 1; transform: none; }
+  @media (prefers-reduced-motion: reduce) {
+    .reveal { opacity: 1; transform: none; transition: none; }
+  }
+
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 6px; }
+</style>
+</head>
+<body>
+
+<header class="topbar" id="topbar">
+  <div class="wrap topbar__inner">
+    <a class="brand" href="#top"><span class="dot"></span>Naveen Narayan</a>
+    <nav class="nav">
+      <a class="nav-link" href="#about">About</a>
+      <a class="nav-link" href="#experience">Experience</a>
+      <a class="nav-link" href="#projects">Projects</a>
+      <a class="nav-link" href="#beyond">Beyond</a>
+      <button class="toggle" id="themeToggle" aria-label="Switch colour theme">
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+      </button>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap hero__grid">
+      <div class="hero__lead">
+        <p class="eyebrow">AI Engineer · IBM · Bangalore</p>
+        <h1>Naveen<br>Narayan<span class="accent">.</span></h1>
+        <p class="hero__thesis">I build <strong>agentic AI that ships</strong> — voice systems, multi-agent orchestration and document automation, deployed from the cloud to air-gapped on-prem.</p>
+        <div class="cta-row">
+          <a class="btn btn--primary" href="#projects">See my work
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+          <a class="btn" href="mailto:naveen.narayan2804@gmail.com">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+            Get in touch
+          </a>
+        </div>
+      </div>
+
+      <div class="hero__aside">
+        <div class="avatar" id="avatar">
+          <img src="assets/profile.jpg" alt="Naveen Narayan"
+               onerror="this.remove();" />
+          <span class="avatar__initials">NN</span>
+        </div>
+        <div>
+          <div class="wave" id="wave" aria-hidden="true"></div>
+          <p class="wave__label">REAL-TIME · MULTILINGUAL · VOICE</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about" class="about">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <p class="eyebrow">About</p>
+        <h2>Forward-deployed, shipping in the field.</h2>
+      </div>
+      <p class="lead reveal">I work where the problem lives — at client sites, running discovery workshops, scoping with stakeholders, and shipping production agentic AI across cloud and air-gapped on-premise environments.</p>
+      <p class="muted reveal">My focus is systems that hold up in the real world: voice AI over telephony with regional-language support, agent orchestration with intent routing and policy governance, and enterprise document automation across banking, insurance and natural resources. I also spend time on the floor — 10+ talks and hands-on workshops at IBM conferences and client briefings to drive adoption.</p>
+
+      <div class="stats">
+        <div class="stat reveal"><div class="num">3+</div><div class="cap">Years building production AI</div></div>
+        <div class="stat reveal"><div class="num">10+</div><div class="cap">Talks &amp; workshops delivered</div></div>
+        <div class="stat reveal"><div class="num">4</div><div class="cap">Languages handled by voice agent</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section id="experience">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <p class="eyebrow">Experience</p>
+        <h2>Where I've worked.</h2>
+      </div>
+
+      <div class="timeline">
+        <div class="job current reveal">
+          <div class="job__meta"><span>AUG 2023 — PRESENT</span><span>· Bangalore, India</span></div>
+          <h3>AI Engineer</h3>
+          <div class="org">IBM</div>
+          <ul>
+            <li>Forward-deployed AI engineer: scope problems with stakeholders on-site and ship production agentic AI across cloud and air-gapped on-prem.</li>
+            <li>Built an agentic voice-AI telephony system that automated an end-to-end job-search journey over a phone call, with regional-language support for citizens without internet access.</li>
+            <li>Engineered agentic orchestration frameworks — intent routing, specialist agents, policy governance — with external agents integrated over the Agent-to-Agent (A2A) protocol.</li>
+            <li>Architected the Financial Analyzer, a personal-finance agent with a "Talk-to-Banking" module unifying statement queries and service execution, shipped as a Flutter app.</li>
+            <li>Delivered document-automation across banking, insurance and natural resources: loan underwriting, multi-policy RAG, and bid-vs-RFP analysis over 10+ bidder documents per submission.</li>
+          </ul>
+        </div>
+
+        <div class="job reveal">
+          <div class="job__meta"><span>MAR 2022 — JUL 2023</span><span>· Trivandrum, India</span></div>
+          <h3>Data Science Consultant</h3>
+          <div class="org">Freelance</div>
+          <ul>
+            <li>Mentored B.Tech students through end-to-end data science projects — pipelines with Python, FastAPI, Pandas, NumPy and Scikit-learn, plus Matplotlib and Seaborn visualization.</li>
+          </ul>
+        </div>
+
+        <div class="job reveal">
+          <div class="job__meta"><span>AUG 2021 — FEB 2022</span><span>· Kochi, India</span></div>
+          <h3>Product Evangelist</h3>
+          <div class="org">Mitsogo Inc.</div>
+          <ul>
+            <li>Promoted Hexnode, Mitsogo's Unified Endpoint Management solution, through demos, educational content and industry events — partnering with sales and marketing on feature messaging.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <p class="eyebrow">Projects</p>
+        <h2>Things I've built.</h2>
+      </div>
+
+      <div class="cards">
+        <article class="card reveal">
+          <div class="card__top"><h3>ChefAI</h3><span class="tag">Live · Play Store</span></div>
+          <p>AI recipe app suggesting personalized meals and video tutorials from your ingredients, with a pantry planner and auto meal plans.</p>
+          <div class="stack">
+            <span class="chip">Python</span><span class="chip">FastAPI</span><span class="chip">LLMs</span><span class="chip">AWS</span><span class="chip">Firebase</span><span class="chip">Flutter</span>
+          </div>
+        </article>
+
+        <article class="card reveal">
+          <div class="card__top"><h3>TutorAI</h3><span class="tag">RAG</span></div>
+          <p>AI tutoring app with personalized learning paths, dynamic quiz generation and adaptive study plans, backed by a Milvus RAG pipeline over educational material.</p>
+          <div class="stack">
+            <span class="chip">Python</span><span class="chip">FastAPI</span><span class="chip">LLMs</span><span class="chip">Milvus</span><span class="chip">AWS</span><span class="chip">Flutter</span>
+          </div>
+        </article>
+
+        <article class="card reveal">
+          <div class="card__top"><h3>Multilingual Voice Agent</h3><span class="tag">Voice</span></div>
+          <p>Real-time agentic voice assistant over telephony that understands and responds in English, Italian, Hindi and Tamil — streaming STT/TTS paired with an LLM agent for intent and tool calls.</p>
+          <div class="stack">
+            <span class="chip">Python</span><span class="chip">Twilio</span><span class="chip">LLMs</span><span class="chip">ElevenLabs</span><span class="chip">Sarvam AI</span>
+          </div>
+        </article>
+
+        <article class="card reveal">
+          <div class="card__top"><h3>Multi-Agent Research Analyst</h3><span class="tag">Agents</span></div>
+          <p>Autonomous multi-agent system that plans research tasks and delegates to tool-using sub-agents under a supervisor, producing structured, citation-backed analyst reports.</p>
+          <div class="stack">
+            <span class="chip">Python</span><span class="chip">LangGraph</span><span class="chip">LangChain</span><span class="chip">RAG</span><span class="chip">FastAPI</span>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <p class="eyebrow">Toolkit</p>
+        <h2>Skills &amp; stack.</h2>
+      </div>
+
+      <div class="skills-grid">
+        <div class="skillset reveal">
+          <h4>AI / ML &amp; Agentic</h4>
+          <div class="stack">
+            <span class="chip">PyTorch</span><span class="chip">LangChain</span><span class="chip">LangGraph</span><span class="chip">Transformers</span><span class="chip">Scikit-learn</span><span class="chip">vLLM</span><span class="chip">IBM watsonx</span><span class="chip">AWS Bedrock</span><span class="chip">AgentCore</span><span class="chip">A2A protocol</span><span class="chip">Multi-agent orchestration</span>
+          </div>
+        </div>
+
+        <div class="skillset reveal">
+          <h4>Voice &amp; Telephony</h4>
+          <div class="stack">
+            <span class="chip">Twilio</span><span class="chip">Streaming STT/TTS</span><span class="chip">ElevenLabs</span><span class="chip">Deepgram</span><span class="chip">Sarvam AI</span>
+          </div>
+        </div>
+
+        <div class="skillset reveal">
+          <h4>Backend, Databases &amp; Cloud</h4>
+          <div class="stack">
+            <span class="chip">FastAPI</span><span class="chip">Flask</span><span class="chip">ChromaDB</span><span class="chip">Milvus</span><span class="chip">Elasticsearch</span><span class="chip">OpenSearch</span><span class="chip">FAISS</span><span class="chip">IBM Db2</span><span class="chip">PostgreSQL</span><span class="chip">MySQL</span><span class="chip">Docker</span><span class="chip">Podman</span><span class="chip">OpenShift</span><span class="chip">IBM Cloud</span><span class="chip">AWS</span><span class="chip">GCP</span>
+          </div>
+        </div>
+
+        <div class="skillset reveal">
+          <h4>Languages, Data &amp; Tools</h4>
+          <div class="stack">
+            <span class="chip">Python</span><span class="chip">SQL</span><span class="chip">C++</span><span class="chip">Pandas</span><span class="chip">NumPy</span><span class="chip">SpaCy</span><span class="chip">NLTK</span><span class="chip">Matplotlib</span><span class="chip">Streamlit</span><span class="chip">Flutter</span><span class="chip">Git</span><span class="chip">Linux (Bash)</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-head reveal" style="margin-top:48px;">
+        <p class="eyebrow">Credentials</p>
+        <h2 style="font-size:clamp(22px,3.4vw,30px);">Certifications &amp; education.</h2>
+      </div>
+      <div class="skills-grid">
+        <div class="skillset reveal">
+          <h4>Certifications</h4>
+          <div class="stack" style="flex-direction:column; align-items:flex-start; gap:10px;">
+            <span class="chip">Generative AI with LLMs — DeepLearning.AI &amp; AWS</span>
+            <span class="chip">Python 3 Programming Specialization — Univ. of Michigan</span>
+            <span class="chip">watsonx.ai Data Science &amp; MLOps Technical Sales — IBM</span>
+            <span class="chip">Generative AI for Code with watsonx Code Assistant — IBM</span>
+            <span class="chip">watsonx.ai L4 &amp; watsonx.governance L4 — IBM</span>
+          </div>
+        </div>
+        <div class="skillset reveal">
+          <h4>Education</h4>
+          <h3 style="font-family:var(--display); font-weight:700; font-size:19px; margin:0 0 4px;">College of Engineering, Trivandrum</h3>
+          <p style="color:var(--muted); margin:0;">B.Tech, Industrial Engineering</p>
+          <p style="color:var(--muted); margin:6px 0 0; font-family:var(--mono); font-size:12px;">AUG 2017 — JUL 2021</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BEYOND -->
+  <section id="beyond">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <p class="eyebrow">Off the clock</p>
+        <h2>Gamer &amp; Cityzen.</h2>
+        <p>When I'm not shipping agents, I'm streaming games or following Manchester City. Two channels, two obsessions.</p>
+      </div>
+
+      <div class="passions">
+        <a class="passion passion--gaming reveal" href="https://www.youtube.com/@naveen_mcfc" target="_blank" rel="noopener">
+          <div>
+            <span class="kicker">YouTube · Gaming</span>
+            <h3>My gaming channel</h3>
+            <p>Gameplay, runs and whatever I'm hooked on lately.</p>
+          </div>
+          <span class="go">@naveen_mcfc
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></svg>
+          </span>
+        </a>
+
+        <a class="passion passion--city reveal" href="https://www.youtube.com/@MCFCSharksKerala" target="_blank" rel="noopener">
+          <div>
+            <span class="kicker">YouTube · Manchester City</span>
+            <h3>MCFC Sharks Kerala</h3>
+            <p>For the Cityzens — match talk, reactions and fan content from Kerala. 💙</p>
+          </div>
+          <span class="go">@MCFCSharksKerala
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></svg>
+          </span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="wrap">
+      <div class="contact reveal">
+        <h2>Let's build something.</h2>
+        <p>Open to interesting problems in agentic and applied AI. Reach out — I read everything.</p>
+        <div class="cta-row">
+          <a class="btn btn--primary" href="mailto:naveen.narayan2804@gmail.com">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+            Email me
+          </a>
+          <a class="btn" href="https://www.linkedin.com/in/naveen-narayan-v/" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5A2.5 2.5 0 1 1 0 3.5a2.5 2.5 0 0 1 4.98 0zM0 8h5v16H0V8zm7.5 0h4.78v2.2h.07c.67-1.2 2.3-2.46 4.73-2.46 5.06 0 6 3.33 6 7.66V24h-5v-7.2c0-1.72-.03-3.93-2.4-3.93-2.4 0-2.77 1.87-2.77 3.8V24h-5V8z"/></svg>
+            LinkedIn
+          </a>
+          <a class="btn" href="https://github.com/naveen2804" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.37.5 0 5.78 0 12.29c0 5.2 3.44 9.6 8.21 11.16.6.11.82-.25.82-.57 0-.28-.01-1.02-.02-2-3.34.71-4.04-1.58-4.04-1.58-.55-1.36-1.34-1.73-1.34-1.73-1.1-.73.08-.72.08-.72 1.21.08 1.85 1.22 1.85 1.22 1.08 1.81 2.82 1.29 3.51.99.11-.77.42-1.29.76-1.59-2.67-.3-5.47-1.31-5.47-5.81 0-1.28.47-2.33 1.24-3.15-.13-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.2a11.6 11.6 0 0 1 6 0c2.29-1.52 3.3-1.2 3.3-1.2.66 1.66.25 2.88.12 3.18.77.82 1.24 1.87 1.24 3.15 0 4.51-2.8 5.51-5.48 5.8.43.37.81 1.1.81 2.22 0 1.6-.01 2.9-.01 3.29 0 .32.21.69.83.57A12.04 12.04 0 0 0 24 12.29C24 5.78 18.63.5 12 .5z"/></svg>
+            GitHub
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    Built by Naveen Narayan · Bangalore, India · <a href="mailto:naveen.narayan2804@gmail.com">naveen.narayan2804@gmail.com</a>
+  </div>
+</footer>
+
+<script>
+  // Theme toggle
+  var toggle = document.getElementById("themeToggle");
+  toggle.addEventListener("click", function () {
+    var next = document.documentElement.getAttribute("data-theme") === "light" ? "dark" : "light";
+    document.documentElement.setAttribute("data-theme", next);
+    try { localStorage.setItem("theme", next); } catch (e) {}
+  });
+
+  // Sticky bar border on scroll
+  var topbar = document.getElementById("topbar");
+  var onScroll = function () { topbar.classList.toggle("is-scrolled", window.scrollY > 8); };
+  onScroll();
+  window.addEventListener("scroll", onScroll, { passive: true });
+
+  // Build waveform bars
+  var wave = document.getElementById("wave");
+  var heights = [40, 65, 30, 80, 55, 95, 45, 70, 35, 88, 50, 75, 28, 60, 90, 42, 68, 33, 82, 52, 78, 38, 96, 48, 72];
+  heights.forEach(function (h, i) {
+    var bar = document.createElement("span");
+    bar.style.height = h + "%";
+    bar.style.animationDelay = (i * 0.06) + "s";
+    bar.style.animationDuration = (1.1 + (i % 5) * 0.12) + "s";
+    wave.appendChild(bar);
+  });
+
+  // Scroll reveal
+  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var items = document.querySelectorAll(".reveal");
+  if (reduce || !("IntersectionObserver" in window)) {
+    items.forEach(function (el) { el.classList.add("in"); });
+  } else {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); }
+      });
+    }, { threshold: 0.12 });
+    items.forEach(function (el) { io.observe(el); });
+  }
+</script>
+</body>
+</html>
